@@ -47,6 +47,8 @@
       <input type="text" id="cCat" placeholder="e.g. Marketing">
       <label>Short Description</label>
       <input type="text" id="cDesc" placeholder="One line about the course">
+      <label>Price (PKR) — 0 ya khali = FREE course</label>
+      <input type="text" id="cPrice" inputmode="numeric" placeholder="e.g. 1499 (paid course) — khali = Free">
       <label>Google Drive Folder Link (Open in Drive button ke liye)</label>
       <input type="url" id="cFolder" placeholder="https://drive.google.com/drive/folders/...">
       <label>Thumbnail Image URL (khali choro to default lagega)</label>
@@ -59,6 +61,25 @@
       </div>
       <p class="note" id="addMsg"></p>
       <p class="note">Note: Admin se added courses abhi is browser mein save hote hain. Sab visitors ke liye live karne ke liye neeche se Export karke file mujhe bhej dein, ya backend wala system lagne ke baad ye direct live hoga.</p>
+    </div>
+
+    <div class="card2">
+      <h3>Coupon / Promo Codes</h3>
+      <label>Coupon Code</label>
+      <input type="text" id="cpCode" placeholder="e.g. SAVE50 ya EID2026">
+      <label>Discount Type</label>
+      <select id="cpType">
+        <option value="pct">Percent (%) off</option>
+        <option value="flat">Fixed Amount (Rs) off</option>
+      </select>
+      <label>Discount Value</label>
+      <input type="text" id="cpValue" inputmode="numeric" placeholder="e.g. 50 (% ke liye) ya 500 (Rs ke liye)">
+      <label>Applies To</label>
+      <select id="cpCourse"><option value="all">All Paid Courses</option></select>
+      <div class="row"><button class="btn" id="cpAdd">＋ Add Coupon</button></div>
+      <p class="note" id="cpMsg"></p>
+      <div id="couponList"></div>
+      <p class="note">Student checkout page par coupon code lagayega to discount auto apply ho jayega. Coupon bhi abhi is browser mein save hota hai (courses ki tarah).</p>
     </div>
 
     <div class="card2">
@@ -87,7 +108,7 @@
   function renderList(){
     const list = getCustom();
     $('customList').innerHTML = list.length ? list.map((c,i)=>`
-      <div class="item"><span><b>${c.title}</b> — ${c.lessons.length} lessons</span>
+      <div class="item"><span><b>${c.title}</b> — ${c.lessons.length} lessons — <b>${c.price ? 'Rs ' + c.price : 'FREE'}</b></span>
       <button class="del" data-i="${i}">Delete</button></div>`).join('')
       : '<p class="note">Abhi koi course add nahi hua.</p>';
     document.querySelectorAll('.del').forEach(b => b.addEventListener('click', ()=>{
@@ -99,7 +120,7 @@
     if($('un').value.trim() === UN && $('pw').value === PW){ sessionStorage.setItem('sigma-lms-admin','1'); showAdmin(); }
     else $('loginMsg').textContent = 'Wrong username or password.';
   });
-  function showAdmin(){ $('loginBox').style.display='none'; $('adminBox').style.display='block'; renderList(); }
+  function showAdmin(){ $('loginBox').style.display='none'; $('adminBox').style.display='block'; renderList(); renderCoupons(); }
   if(sessionStorage.getItem('sigma-lms-admin')==='1') showAdmin();
   $('logoutBtn').addEventListener('click', ()=>{ sessionStorage.removeItem('sigma-lms-admin'); location.reload(); });
 
@@ -122,23 +143,59 @@
       desc: $('cDesc').value.trim(),
       folder: $('cFolder').value.trim(),
       thumb: $('cThumb').value.trim() || 'assets/thumb-claude.jpg',
+      price: parseInt(($('cPrice').value || '0').replace(/[^0-9]/g,''), 10) || 0,
       lessons
     };
     const a = getCustom(); a.push(course); setCustom(a);
     $('addMsg').textContent = 'Course add ho gaya. Website par ja kar dekhein.';
-    $('cTitle').value = $('cCat').value = $('cDesc').value = $('cFolder').value = $('cThumb').value = $('cLessons').value = '';
+    $('cTitle').value = $('cCat').value = $('cDesc').value = $('cFolder').value = $('cThumb').value = $('cLessons').value = $('cPrice').value = '';
     renderList();
   });
 
+  const CPKEY = 'sigma-lms-coupons';
+  function getCoupons(){ try { return JSON.parse(localStorage.getItem(CPKEY) || '[]'); } catch(e){ return []; } }
+  function setCoupons(a){ localStorage.setItem(CPKEY, JSON.stringify(a)); }
+  function renderCoupons(){
+    const list = getCoupons();
+    const sel = $('cpCourse');
+    const cur = sel.value;
+    sel.innerHTML = '<option value="all">All Paid Courses</option>' + getCustom().map(c=>`<option value="${c.slug}">${c.title}</option>`).join('');
+    sel.value = cur || 'all';
+    $('couponList').innerHTML = list.length ? list.map((c,i)=>`
+      <div class="item"><span><b>${c.code}</b> — ${c.type === 'pct' ? c.value + '% off' : 'Rs ' + c.value + ' off'} (${c.course === 'all' ? 'All courses' : c.course})</span>
+      <button class="del" data-cp="${i}">Delete</button></div>`).join('')
+      : '<p class="note">Abhi koi coupon nahi hai.</p>';
+    document.querySelectorAll('[data-cp]').forEach(b => b.addEventListener('click', ()=>{
+      const a = getCoupons(); a.splice(parseInt(b.dataset.cp,10),1); setCoupons(a); renderCoupons();
+    }));
+  }
+  $('cpAdd').addEventListener('click', ()=>{
+    const code = $('cpCode').value.trim().toUpperCase().replace(/\s+/g,'');
+    const value = parseInt(($('cpValue').value || '0').replace(/[^0-9]/g,''), 10) || 0;
+    if(code.length < 3){ $('cpMsg').textContent = 'Coupon code kam az kam 3 characters ka dein.'; return; }
+    if(!value){ $('cpMsg').textContent = 'Discount value dein.'; return; }
+    const a = getCoupons();
+    if(a.some(c => c.code === code)){ $('cpMsg').textContent = 'Ye code pehle se mojood hai.'; return; }
+    a.push({ code, type: $('cpType').value, value, course: $('cpCourse').value, active: true });
+    setCoupons(a);
+    $('cpMsg').textContent = 'Coupon add ho gaya: ' + code;
+    $('cpCode').value = $('cpValue').value = '';
+    renderCoupons();
+  });
+
   $('exportBtn').addEventListener('click', ()=>{
-    const blob = new Blob([JSON.stringify(getCustom(), null, 2)], {type:'application/json'});
+    const blob = new Blob([JSON.stringify({ courses: getCustom(), coupons: getCoupons() }, null, 2)], {type:'application/json'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sigma-lms-courses.json'; a.click();
   });
   $('importBtn').addEventListener('click', ()=> $('importFile').click());
   $('importFile').addEventListener('change', e=>{
     const f = e.target.files[0]; if(!f) return;
     const r = new FileReader();
-    r.onload = ()=>{ try { const data = JSON.parse(r.result); if(Array.isArray(data)){ setCustom(data); renderList(); alert('Import ho gaya.'); } } catch(err){ alert('File sahi nahi hai.'); } };
+    r.onload = ()=>{ try { const data = JSON.parse(r.result);
+      if(Array.isArray(data)){ setCustom(data); }
+      else if(data && Array.isArray(data.courses)){ setCustom(data.courses); if(Array.isArray(data.coupons)) setCoupons(data.coupons); }
+      else { alert('File sahi nahi hai.'); return; }
+      renderList(); renderCoupons(); alert('Import ho gaya.'); } catch(err){ alert('File sahi nahi hai.'); } };
     r.readAsText(f);
   });
 </script>

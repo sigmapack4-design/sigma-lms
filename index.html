@@ -3,45 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIGMA LMS — Free Courses by SIGMA (LWS)</title>
-<meta name="description" content="Learn today, earn tomorrow. Free online courses by SIGMA (LWS) — watch video lessons online or open the full course in Google Drive.">
+<title>SIGMA LMS — Learn Skills, Earn Future</title>
+<meta name="description" content="Free online courses by SIGMA (LWS) — learn practical skills with step-by-step video lessons, track your progress and earn certificates.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="#/">
-    <span class="logo-pill"><img src="assets/logo-full.webp" alt="SIGMA LMS — Learn, Manage, Succeed"></span>
-  </a>
-  <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-  <nav class="topnav" id="navPanel">
-    <a href="#/" class="nl">Home</a>
-    <a href="#/" class="nl" data-goto="courses">Courses</a>
-    <a href="#/" class="nl" data-goto="categories">Categories</a>
-    <a href="#/" class="nl" data-goto="paths">Paths</a>
-    <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener" class="nl">Channel</a>
-    <a href="#/" class="joinbtn" data-goto="courses">Join Free</a>
-  </nav>
+  <div class="topbar-in">
+    <a class="brand" href="#/"><img src="assets/logo-full.webp" alt="SIGMA LMS — Learn, Manage, Succeed"></a>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="topnav" id="navPanel">
+      <a href="#/" class="nl">Home</a>
+      <a href="#/courses" class="nl">Courses</a>
+      <a href="#/dashboard" class="nl">My Learning</a>
+      <a href="#/dashboard" class="nl">Dashboard</a>
+      <a href="#/login" class="loginbtn" id="authBtn">Login</a>
+    </nav>
+  </div>
 </header>
 
 <main id="app"></main>
 
-<section class="trust">
-  <div class="trust-in">
-    <div class="trust-item"><b>100% Free</b><span>All courses, no fees</span></div>
-    <div class="trust-item"><b>No Sign-up</b><span>Start watching instantly</span></div>
-    <div class="trust-item"><b>Any Device</b><span>Mobile, tablet & PC</span></div>
-    <div class="trust-item"><b>New Courses</b><span>Announced on the channel</span></div>
-  </div>
-</section>
-
 <footer class="footer">
   <div class="footer-in">
     <div class="fcol fbrand">
-      <a class="brand light" href="#/"><span class="logo-pill foot"><img src="assets/logo-full.webp" alt="SIGMA LMS — Learn, Manage, Succeed"></span></a>
-      <p>Free world-class courses and practical skills for everyone, by SIGMA (LWS). Learn today, earn tomorrow.</p>
+      <a class="brand" href="#/"><img src="assets/logo-full.webp" alt="SIGMA LMS"></a>
+      <p>Empowering learners to build skills for the future. Learn, grow, and succeed with SIGMA LMS.</p>
       <div class="socials">
         <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
         <a href="https://t.me/sigmabanner_bot" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
@@ -49,22 +39,28 @@
       </div>
     </div>
     <div class="fcol">
-      <h4>Quick Links</h4>
-      <a href="#/">Home</a><a href="#/" data-goto="courses">Courses</a><a href="#/" data-goto="categories">Categories</a>
+      <h4>Company</h4>
+      <a href="#/">About Us</a>
+      <a href="#/courses">Courses</a>
+      <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">Community</a>
     </div>
     <div class="fcol">
       <h4>Resources</h4>
-      <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">WhatsApp Channel</a><a href="#/" data-goto="paths">Learning Paths</a><a href="#/" data-goto="skills">Skills</a>
+      <a href="#/courses">All Courses</a>
+      <a href="#/dashboard">My Learning</a>
+      <a href="#/dashboard">Certificates</a>
     </div>
     <div class="fcol">
-      <h4>SIGMA (LWS)</h4>
-      <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">Free Courses</a><a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">Methods & Tricks</a><a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">Jobs Updates</a>
+      <h4>Support</h4>
+      <a href="https://whatsapp.com/channel/0029VbE0bx5BKfhvceuZrE1I" target="_blank" rel="noopener">WhatsApp Channel</a>
+      <a href="mailto:rawiedites@gmail.com">Email Us</a>
+      <a href="#/login">Student Login</a>
     </div>
   </div>
-  <div class="fbar"><span>© 2026 SIGMA LMS • SIGMA (LWS). All rights reserved.</span><span>Privacy Policy &nbsp;•&nbsp; Terms of Service</span></div>
+  <div class="fbar"><span>© 2026 SIGMA LMS • SIGMA (LWS). All rights reserved.</span><span>Learn • Grow • Succeed</span></div>
 </footer>
 
-<script src="data.js?v=6"></script>
-<script src="app.js?v=6"></script>
+<script src="data.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
