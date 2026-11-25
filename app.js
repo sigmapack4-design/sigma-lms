@@ -73,12 +73,12 @@
           <a class="btn" href="#/" data-goto="courses">Explore Courses</a>
         </div>
         <div class="hero-art">
-          <span class="hero-dot" style="width:14px;height:14px;top:8%;left:12%"></span>
-          <span class="hero-dot" style="width:9px;height:9px;top:30%;left:2%;background:#8b3dff"></span>
           <img src="assets/hero.webp" alt="Student learning with SIGMA LMS">
-          <div class="chip-float cf1"><span class="ic g">${I.play}</span><span><b>Video Lessons</b><small>Watch Anytime</small></span></div>
-          <div class="chip-float cf2"><span class="ic p">${I.check}</span><span><b>Free Courses</b><small>No Fees, Ever</small></span></div>
-          <div class="chip-float cf3"><span class="ic y">${I.drive}</span><span><b>Drive Access</b><small>Full Course Files</small></span></div>
+          <div class="hero-chips">
+            <div class="chip-float cf1"><span class="ic g">${I.play}</span><span><b>Video Lessons</b><small>Watch Anytime</small></span></div>
+            <div class="chip-float cf2"><span class="ic p">${I.check}</span><span><b>Free Courses</b><small>No Fees, Ever</small></span></div>
+            <div class="chip-float cf3"><span class="ic y">${I.drive}</span><span><b>Drive Access</b><small>Full Course Files</small></span></div>
+          </div>
         </div>
       </div>
     </section>
