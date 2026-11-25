@@ -75,7 +75,7 @@
         <div class="hero-art">
           <span class="hero-dot" style="width:14px;height:14px;top:8%;left:12%"></span>
           <span class="hero-dot" style="width:9px;height:9px;top:30%;left:2%;background:#8b3dff"></span>
-          <img src="assets/hero.png" alt="Student learning with SIGMA LMS">
+          <img src="assets/hero.webp" alt="Student learning with SIGMA LMS">
           <div class="chip-float cf1"><span class="ic g">${I.play}</span><span><b>Video Lessons</b><small>Watch Anytime</small></span></div>
           <div class="chip-float cf2"><span class="ic p">${I.check}</span><span><b>Free Courses</b><small>No Fees, Ever</small></span></div>
           <div class="chip-float cf3"><span class="ic y">${I.drive}</span><span><b>Drive Access</b><small>Full Course Files</small></span></div>
@@ -96,6 +96,8 @@
       <div class="feature"><span class="ic">${I.drive}</span><span><b>Drive Files</b><small>Full course folders</small></span></div>
       <div class="feature"><span class="ic">${I.users}</span><span><b>Community</b><small>Connect & learn</small></span></div>
     </div>
+
+    <div class="marquee"><div class="marquee-track">${'<span>AI TOOLS ✦ BLOGGING ✦ CHATGPT ✦ CANVA ✦ MIDJOURNEY ✦ AFFILIATE MARKETING ✦ PINTEREST ✦ ONLINE EARNING ✦ </span>'.repeat(2)}</div></div>
 
     <section class="section" id="categories">
       <div class="sec-head"><h2>Top Categories</h2><a href="#/" data-goto="courses">View All</a></div>
@@ -172,8 +174,8 @@
         <div class="edu-art"><img src="assets/edu-girl.jpg" alt="Student learning with laptop"></div>
       </div>
       <div class="stats">
-        <div class="st"><b>${courses.length}</b><span>Free Courses</span></div>
-        <div class="st"><b>${totalLessons}</b><span>Video Lessons</span></div>
+        <div class="st"><b data-count="${courses.length}">0</b><span>Free Courses</span></div>
+        <div class="st"><b data-count="${totalLessons}">0</b><span>Video Lessons</span></div>
         <div class="st"><b>100%</b><span>Free Forever</span></div>
         <div class="st"><b>24/7</b><span>Watch Anytime</span></div>
       </div>
@@ -228,6 +230,25 @@
     document.getElementById('fcat').addEventListener('change', e=>{ fCat = e.target.value; applyFilter(); });
     document.getElementById('flevel').addEventListener('change', e=>{ fLevel = e.target.value; applyFilter(); });
     document.getElementById('searchBtn').addEventListener('click', ()=>{ applyFilter(); document.getElementById('courses').scrollIntoView({behavior:'smooth'}); });
+
+    // scroll-reveal animations + stats count-up (scroll-check, koi element miss nahi hota)
+    const rvEls = app.querySelectorAll('.feature, .card, .cat, .path, .skill, .learner, .offer, .edu, .appbanner, .searchbar-card, .stats');
+    rvEls.forEach((el,i)=>{ el.classList.add('rv'); el.style.transitionDelay = (i%3)*70 + 'ms'; });
+    const counters = app.querySelectorAll('[data-count]');
+    function animateCount(el){
+      const end = parseInt(el.dataset.count,10); const t0 = performance.now();
+      (function step(t){ const p = Math.min(1,(t-t0)/1100); el.textContent = Math.round(end * (1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); })(t0);
+    }
+    let ticking = false;
+    function revealCheck(){
+      const vh = window.innerHeight;
+      rvEls.forEach(el=>{ if(!el.classList.contains('in') && el.getBoundingClientRect().top < vh*0.94) el.classList.add('in'); });
+      counters.forEach(el=>{ if(!el.dataset.done && el.getBoundingClientRect().top < vh*0.94){ el.dataset.done = '1'; animateCount(el); } });
+    }
+    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(()=>{ revealCheck(); ticking = false; }); } }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    revealCheck(); setTimeout(revealCheck, 400); setTimeout(revealCheck, 1400);
 
     const target = new Date('2026-11-30T23:59:59+05:00').getTime();
     function tick(){

@@ -29,8 +29,10 @@
   <div class="panel" id="loginBox">
     <div class="card2">
       <h2>Admin Login</h2>
+      <label>Username</label>
+      <input type="text" id="un" placeholder="Enter username" autocomplete="username">
       <label>Password</label>
-      <input type="password" id="pw" placeholder="Enter admin password">
+      <input type="password" id="pw" placeholder="Enter admin password" autocomplete="current-password">
       <div class="row"><button class="btn" id="loginBtn">Login</button></div>
       <p class="note" id="loginMsg"></p>
     </div>
@@ -73,6 +75,7 @@
 
 <script>
   const PW = 'Sigma@786';
+  const UN = 'admin';
   const KEY = 'sigma-lms-custom';
   const $ = id => document.getElementById(id);
 
@@ -93,8 +96,8 @@
   }
 
   $('loginBtn').addEventListener('click', ()=>{
-    if($('pw').value === PW){ sessionStorage.setItem('sigma-lms-admin','1'); showAdmin(); }
-    else $('loginMsg').textContent = 'Wrong password.';
+    if($('un').value.trim() === UN && $('pw').value === PW){ sessionStorage.setItem('sigma-lms-admin','1'); showAdmin(); }
+    else $('loginMsg').textContent = 'Wrong username or password.';
   });
   function showAdmin(){ $('loginBox').style.display='none'; $('adminBox').style.display='block'; renderList(); }
   if(sessionStorage.getItem('sigma-lms-admin')==='1') showAdmin();
