@@ -313,6 +313,12 @@
   document.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click', ()=>{
     setTimeout(()=>{ const t = document.getElementById(a.dataset.goto); if(t) t.scrollIntoView({behavior:'smooth'}); }, 80);
   }));
+  const burger = document.getElementById('burgerBtn');
+  const navPanel = document.getElementById('navPanel');
+  if(burger && navPanel){
+    burger.addEventListener('click', ()=>{ navPanel.classList.toggle('open'); burger.classList.toggle('x'); });
+    navPanel.querySelectorAll('a').forEach(x => x.addEventListener('click', ()=>{ navPanel.classList.remove('open'); burger.classList.remove('x'); }));
+  }
   window.addEventListener('hashchange', route);
   route();
 })();
