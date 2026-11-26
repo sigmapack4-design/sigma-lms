@@ -273,3 +273,9 @@ img{display:block;max-width:100%}
   .cta h2{font-size:25px}
   .footer-in{grid-template-columns:1fr;padding:46px 20px 30px}
 }
+
+/* SEO intro block (static, crawler-visible) */
+.seo-block{background:var(--soft);border-top:1px solid var(--line);padding:44px 0}
+.seo-block h1{font-size:24px;margin-bottom:10px}
+.seo-block p{color:var(--mut);max-width:820px;margin-bottom:8px}
+.seo-block a{color:var(--pri);font-weight:600}
