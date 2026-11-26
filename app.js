@@ -110,8 +110,8 @@
     <div class="wrap">
       <section class="hero"><div class="hero-in">
         <div>
-          <span class="hero-badge">🚀 100% Free Learning Platform</span>
-          <h1>Learn Skills, Earn Future</h1>
+          <span class="hero-badge">100% Free Learning Platform</span>
+          <h1>Learn Skills. <span class="grad">Build Future.</span></h1>
           <p>Upskill with free online courses by SIGMA (LWS). Learn anytime, anywhere, track your progress and earn certificates.</p>
           <div class="hero-btns">
             <a class="btn white" href="#/courses">Explore Courses</a>
@@ -215,13 +215,13 @@
         <a class="backlink" href="#/courses">← All Courses</a>
         <div class="course-head"><h2>${esc(c.title)}</h2><p>${esc(c.desc)}</p></div>
         <div class="player-wrap"><img src="${esc(c.thumb)}" alt="${esc(c.title)}" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block"></div>
-        <div class="cert-banner" style="background:linear-gradient(92deg,#eef0ff,#f6f2ff);border-color:#c9c2f5">
+        <div class="cert-banner" style="background:#FBF6E3;border-color:#D4AF37">
           <span style="font-size:32px">🔒</span>
           <span style="flex:1;min-width:220px"><b style="color:#2b1065">Paid Course — ${fmtRs(priceOf(c))}</b><p style="color:#55556e">Ye course paid hai. Checkout par coupon / promo code bhi laga sakte hain.</p></span>
           <a class="btn" href="#/checkout/${slug}">Buy Now →</a>
         </div>
         <h3 style="font-size:19px;margin-top:20px">Course Lessons</h3>
-        <div class="lessons">${c.lessons.map((l, i) => `<div class="lesson" style="cursor:default"><span class="n">${i + 1}</span><span>${esc(l.t)}</span><span class="done" style="color:#b3261e">🔒 Locked</span></div>`).join('')}</div>
+        <div class="lessons">${c.lessons.map((l, i) => `<div class="lesson" style="cursor:default"><span class="n">${i + 1}</span><span>${esc(l.t)}</span><span class="done" style="color:#b3261e">Locked</span></div>`).join('')}</div>
       </div>`;
       window.scrollTo(0, 0);
       return;
@@ -252,7 +252,7 @@
           <a class="btn ghost" href="${esc(c.folder)}" target="_blank" rel="noopener">Open Full Course in Drive</a>
           <a class="btn ghost" href="#/dashboard">My Dashboard</a>
         </div>
-        ${p === 100 ? `<div class="cert-banner"><span style="font-size:34px">🏆</span><span style="flex:1;min-width:220px"><b>Course Completed — Certificate Ready!</b><p>You finished all ${c.lessons.length} lessons. Download your Certificate of Completion.</p></span><button class="btn" id="btnCert">Download Certificate</button></div>` : ''}
+        ${p === 100 ? `<div class="cert-banner"><span style="font-size:34px"></span><span style="flex:1;min-width:220px"><b>Course Completed — Certificate Ready!</b><p>You finished all ${c.lessons.length} lessons. Download your Certificate of Completion.</p></span><button class="btn" id="btnCert">Download Certificate</button></div>` : ''}
         <h3 style="font-size:19px;margin-top:8px">Course Lessons</h3>
         <div class="lessons">
           ${c.lessons.map((l, i) => `<button class="lesson ${i === cur ? 'playing' : ''}" data-i="${i}"><span class="n">${i + 1}</span><span>${esc(l.t)}</span>${w.includes(i) ? '<span class="done">✓ Done</span>' : ''}</button>`).join('')}
@@ -366,14 +366,14 @@
         <p class="co-sub">Complete your purchase to enroll in the course</p>
         <div class="co-grid">
           <div class="co-card">
-            <h3>🧾 Coupon / Promo Code</h3>
+            <h3> Coupon / Promo Code</h3>
             <div class="coupon-row">
               <input type="text" id="cpInput" placeholder="Enter coupon code" value="${applied ? esc(applied.code) : ''}">
               <button class="btn sm" id="cpApply">Apply</button>
             </div>
             ${msg ? `<p class="co-msg">${msg}</p>` : ''}
             ${applied ? `<p class="co-ok">✓ Coupon <b>${esc(applied.code)}</b> applied — you saved ${fmtRs(disc)}</p>` : ''}
-            <h3 style="margin-top:26px">🛡 Payment Method</h3>
+            <h3 style="margin-top:26px"> Payment Method</h3>
             ${['JazzCash|Pay via JazzCash mobile wallet', 'Easypaisa|Pay via Easypaisa mobile wallet', 'Bank Card|Credit or Debit Card'].map(m => {
               const parts = m.split('|');
               return `<label class="method ${method === parts[0] ? 'on' : ''}"><span><b>${parts[0]}</b><small>${parts[1]}</small></span><input type="radio" name="pm" value="${parts[0]}" ${method === parts[0] ? 'checked' : ''}></label>`;
@@ -412,7 +412,7 @@
         localStorage.setItem('sigma-lms-owned', JSON.stringify(om));
         app.innerHTML = `
         <div class="wrap"><div class="gate">
-          <div style="font-size:44px">✅</div>
+          <div style="font-size:44px"></div>
           <h2>Order Placed!</h2>
           <p><b>${esc(c.title)}</b> unlock ho gaya hai is device par.<br>
           ${total2 > 0 ? 'Total: <b>' + fmtRs(total2) + '</b> via ' + esc(method) + ' — payment confirm karne ke liye screenshot <a href="' + CHANNEL + '" target="_blank" rel="noopener" style="color:var(--purple);font-weight:600">SIGMA (LWS) WhatsApp</a> par bhejein.' : 'Coupon se course bilkul FREE ho gaya hai — koi payment nahi chahiye.'}</p>
@@ -549,7 +549,7 @@
           </div>
           <div class="panel">
             <h3>Certificates</h3>
-            ${certs.length ? certs.map(c => `<div class="cert-item"><span style="font-size:26px">🏆</span><span style="flex:1;min-width:160px"><b>${esc(c.title)}</b><small>Credential ID: ${credId(c)}</small></span><button class="btn sm" data-cert="${c.slug}">Download</button></div>`).join('') : '<p style="color:var(--muted);font-size:14.5px">Complete any course 100% and your certificate will appear here.</p>'}
+            ${certs.length ? certs.map(c => `<div class="cert-item"><span style="font-size:26px"></span><span style="flex:1;min-width:160px"><b>${esc(c.title)}</b><small>Credential ID: ${credId(c)}</small></span><button class="btn sm" data-cert="${c.slug}">Download</button></div>`).join('') : '<p style="color:var(--muted);font-size:14.5px">Complete any course 100% and your certificate will appear here.</p>'}
             <h3 style="margin-top:24px">Settings</h3>
             <div class="fld"><label>Your Name (on certificates)</label><input type="text" id="setName" value="${esc(p.name)}"></div>
             <button class="btn sm" id="saveName">Save Name</button>
