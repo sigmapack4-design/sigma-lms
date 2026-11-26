@@ -1,0 +1,12 @@
+# SIGMA LMS
+
+> SIGMA LMS is a free online learning platform by SIGMA (LWS): video courses
+> with a lesson player, student dashboard, progress tracking and completion
+> certificates. Most courses are free; some are paid with coupon/promo codes.
+
+## Key facts
+
+- Website: https://sigmapack4-design.github.io/sigma-lms/
+- Sitemap: https://sigmapack4-design.github.io/sigma-lms/sitemap.xml
+- Courses: https://sigmapack4-design.github.io/sigma-lms/#/courses
+- Community: SIGMA (LWS) WhatsApp channel — free courses, methods and job updates.
